@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brew & Bean | Home</title>
+<style>
+/* --- VARIABLES & RESET --- */
+:root {
+  --primary: #3b2f2f;
+  --accent: #c59d5f;
+  --bg: #f8f5f2;
+  --white: #ffffff;
+  --text: #4a4a4a;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* --- HEADER & NAVIGATION --- */
+header {
+  background: var(--primary);
+  padding: 1rem 5%;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+header h1 {
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+nav {
+  display: flex;
+  gap: 25px;
+}
+nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: var(--accent);
+}
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* --- HERO SECTION (AUTO-RESIZE) --- */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url("hero.jpg");
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #2a2222; 
+  width: 100%;
+  aspect-ratio: 16 / 7; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+.hero-content h2 {
+  font-size: clamp(1.8rem, 5vw, 4rem);
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 15px rgba(0,0,0,0.8);
+}
+.hero-content p {
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+}
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 12px 30px;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 2px solid var(--accent);
+}
+.btn:hover {
+  background: transparent;
+  color: var(--accent);
+}
+
+/* --- SECTIONS --- */
+section {
+  padding: 60px 5%;
+  max-width: 1200px;
+  margin: auto;
+}
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.section-title h3 {
+  font-size: 2.2rem;
+  color: var(--primary);
+}
+
+/* --- GREETING SECTION --- */
+.about-row {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.about-text {
+  flex: 1;
+  min-width: 300px;
+}
+.about-image {
+  flex: 1;
+  min-width: 300px;
+}
+.about-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 15px 15px 0 var(--accent);
+}
+
+/* --- SLIDESHOW --- */
+.slideshow-container {
+  position: relative;
+  max-width: 900px;
+  margin: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+.slide img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.prev, .next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+.next { right: 0; }
+
+/* --- CONTACT --- */
+.contact-card {
+  background: var(--primary);
+  color: white;
+  padding: 40px;
+  border-radius: 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+footer {
+  background: #1a1a1a;
+  color: #777;
+  text-align: center;
+  padding: 25px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .hamburger { display: block; }
+  nav {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: var(--primary);
+    width: 100%;
+    padding: 30px;
+  }
+  nav.active { display: flex; }
+  .hero {
+    aspect-ratio: 1 / 1; 
+  }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Brew & Bean</h1>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <nav id="navMenu">
+    <a href="index.html" style="color: var(--accent);">Home</a>
+    <a href="menu.html">Menu</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="hero-content">
+    <h2>Fresh Coffee, Cozy Vibes</h2>
+    <p>The perfect corner for your daily brew</p>
+    <a href="menu.html" class="btn">View Our Menu</a>
+  </div>
+</div>
+
+<section id="about">
+  <div class="about-row">
+    <div class="about-text">
+      <div class="section-title" style="text-align: left; margin-bottom: 20px;">
+        <h3>Your Perfect Cup is Waiting</h3>
+      </div>
+      <p>Escape the daily hustle and step into a world of rich aromas and cozy comfort. Whether you're fueling up for a busy morning or slowing down for a mid-day break, we serve more than just caffeine—we serve a moment of peace crafted just for you.</p>
+      <br>
+      <p>Savor the bold, authentic flavors of premium beans sourced directly from the highlands. From the first warm sip to the last drop, experience why there’s no better place to treat yourself. Come in, find your favorite corner, and let us brew something special for you today.</p>
+    </div>
+    <div class="about-image">
+      <img src="gallery.jpg" alt="Enjoying Coffee at Brew & Bean">
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="section-title"><h3>The Experience</h3></div>
+  <div class="slideshow-container">
+    <div class="slide"><img src="gallery1.jpg" alt="Interior"></div>
+    <div class="slide"><img src="gallery2.jpg" alt="Coffee Art"></div>
+    <div class="slide"><img src="gallery3.jpg" alt="Brewing"></div>
+    <a class="prev" onclick="changeSlide(-1)">❮</a>
+    <a class="next" onclick="changeSlide(1)">❯</a>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-card">
+    <div>
+      <h4 style="color: var(--accent); margin-bottom: 5px;">Visit Us</h4>
+      <p>📍 Makati Ave</p>
+    </div>
+    <div>
+      <h4 style="color: var(--accent); margin-bottom: 5px;">Hours</h4>
+      <p>🕒 Daily: 7AM - 10PM</p>
+    </div>
+    <div>
+      <h4 style="color: var(--accent); margin-bottom: 5px;">Call Us</h4>
+      <p>📞 +63 900 000 0000</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Brew & Bean Coffee Shop | All Rights Reserved</p>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById("navMenu").classList.toggle("active");
+}
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function changeSlide(n) { showSlides(slideIndex += n); }
+function currentSlide(n) { showSlides(slideIndex = n); }
+
+function showSlides(n) {
+  let slides = document.getElementsByClassName("slide");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  if (slides[slideIndex-1]) {
+    slides[slideIndex-1].style.display = "block";
+  }
+}
+setInterval(() => { changeSlide(1); }, 5000);
+</script>
+</body>
+</html>
