@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brew & Bean | Order Form</title>
-
 <style>
 /* --- VARIABLES & RESET --- */
 :root {
@@ -13,13 +12,11 @@
   --bg: #f8f5f2;
   --white: #ffffff;
   --text: #4a4a4a;
+  --whatsapp: #25D366;
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; }
+body { background: var(--bg); color: var(--text); padding-bottom: 100px; }
 
-body { background: var(--bg); color: var(--text); padding-bottom: 50px; }
-
-/* --- HEADER --- */
 header {
   background: var(--primary);
   padding: 1rem 5%;
@@ -30,322 +27,255 @@ header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
-
 header h1 { font-size: 1.2rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
 
-.close-btn {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.9rem;
-  padding: 5px 15px;
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 20px;
-  transition: 0.3s;
-}
-
-.close-btn:hover { background: white; color: var(--primary); }
-
-/* --- FORM CONTAINER --- */
-.container { max-width: 600px; margin: 30px auto; padding: 0 20px; }
-
-.order-card {
-  background: white;
-  padding: 25px;
-  border-radius: 25px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-}
-
-h2 { color: var(--primary); margin-bottom: 20px; text-align: center; }
-
-.input-group { margin-bottom: 15px; }
-
-label { display: block; font-weight: bold; margin-bottom: 5px; color: var(--primary); }
-
-input, select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  font-size: 1rem;
-  outline: none;
-  transition: 0.3s;
-}
-
-input:focus, select:focus { border-color: var(--accent); }
-
-/* Table Number Field (Conditional) */
-#tableNumGroup {
-  display: block; /* Shown by default because Dine-in is first option */
-  animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* --- ITEM SELECTION & CART --- */
-.add-item-box {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  background: #fdfaf7;
-  padding: 15px;
-  border-radius: 15px;
-  border: 1px dashed var(--accent);
-}
-
-.btn-add {
-  background: var(--primary);
-  color: white;
-  border: none;
-  padding: 0 20px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-#cartTable {
-  width: 100%;
-  margin: 20px 0;
-  border-collapse: collapse;
-}
-
-#cartTable th { text-align: left; padding: 10px; border-bottom: 2px solid var(--bg); color: #888; font-size: 0.9rem; }
-#cartTable td { padding: 12px 10px; border-bottom: 1px solid var(--bg); }
-
-.remove-btn { color: #e74c3c; cursor: pointer; border: none; background: none; font-size: 1.2rem; }
-
-.total-display {
-  text-align: right;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: var(--primary);
-  margin: 20px 0;
-  padding-right: 10px;
-}
-
-/* --- BUTTONS --- */
-.btn-send {
-  display: block;
-  width: 100%;
-  background: var(--accent);
-  color: white;
-  padding: 16px;
-  text-decoration: none;
-  border-radius: 50px;
-  font-weight: bold;
-  font-size: 1.1rem;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-  box-shadow: 0 4px 15px rgba(197, 157, 95, 0.3);
-}
-
-.btn-send:hover { background: var(--primary); transform: translateY(-2px); }
-
-.back-link { display: block; text-align: center; margin-top: 20px; color: #888; text-decoration: none; font-size: 0.9rem; }
-
-/* --- SUCCESS OVERLAY --- */
-.success-overlay {
+/* --- FLOATING WHATSAPP BUTTON --- */
+.floating-wa-btn {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(59, 47, 47, 0.98);
-  display: none; /* Hidden by default */
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  z-index: 3000;
-  text-align: center;
-  padding: 20px;
-}
-
-.success-icon {
-  font-size: 3rem;
-  color: var(--accent);
-  margin-bottom: 20px;
-  border: 3px solid var(--accent);
+  bottom: 30px;
+  right: 30px;
+  background: var(--whatsapp);
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  width: 80px; height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+  z-index: 2000;
+  animation: pulse-green 2s infinite;
+  cursor: pointer;
+  text-decoration: none;
+}
+.online-tag {
+  position: absolute;
+  left: -75px;
+  background: white;
+  color: #333;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 10px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.online-tag::after { content: ''; width: 6px; height: 6px; background: var(--whatsapp); border-radius: 50%; }
+
+@keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+/* --- FORM & SELECTOR --- */
+.container { max-width: 500px; margin: 20px auto; padding: 0 15px; }
+.order-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); }
+.input-group { margin-bottom: 15px; }
+label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.9rem; color: var(--primary); }
+input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 10px; outline: none; font-size: 1rem; }
+
+.item-selector { 
+  background: #fafafa; 
+  padding: 20px; 
+  border-radius: 15px; 
+  border: 1px dashed var(--accent); 
+  margin-bottom: 20px;
+  text-align: center;
+}
+.preview-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 10px; }
+.item-main-img { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); margin-bottom: 10px; }
+
+.add-row { display: flex; gap: 8px; }
+.qty-input { width: 70px; text-align: center; }
+.btn-add { flex-grow: 1; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+
+/* --- CART TABLE & THUMBNAILS --- */
+#cartTable { width: 100%; margin: 15px 0; border-collapse: collapse; }
+#cartTable th { text-align: left; font-size: 0.75rem; color: #999; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+#cartTable td { padding: 10px 0; border-bottom: 1px solid #f9f9f9; vertical-align: middle; }
+
+.cart-thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--accent);
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.success-overlay h2 { color: var(--accent); font-size: 2rem; margin-bottom: 10px; }
-.success-overlay p { margin-bottom: 30px; line-height: 1.5; opacity: 0.9; }
+.total-display { text-align: right; font-size: 1.6rem; font-weight: bold; margin: 20px 0; color: var(--primary); }
+.btn-send { width: 100%; background: var(--whatsapp); color: white; padding: 16px; border: none; border-radius: 12px; font-size: 1.1rem; font-weight: bold; cursor: pointer; }
 
+.success-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(59, 47, 47, 0.96); display: none; flex-direction: column; 
+  justify-content: center; align-items: center; color: white; z-index: 3000;
+}
 </style>
 </head>
 <body>
 
 <header>
   <h1>Brew & Bean</h1>
-  <a href="menu.html" class="close-btn">✕ Close</a>
+  <div class="nav-links"><a href="menu.html" style="color:var(--accent); text-decoration:none;">✕ Close</a></div>
 </header>
+
+<a href="https://wa.me/639310410733?text=Hi!%20I%20have%20a%20question%20about%20my%20order." class="floating-wa-btn" target="_blank">
+  <span class="online-tag">Online</span>
+  <svg viewBox="0 0 448 512" width="28" height="28" fill="white"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.2-8.5-44.2-27.1-16.4-14.6-27.4-32.7-30.6-38.2-3.2-5.6-.3-8.6 2.4-11.3 2.5-2.4 5.5-6.5 8.3-9.7 2.8-3.3 3.7-5.6 5.5-9.2 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.5 9.2 31.5 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+</a>
 
 <div class="container">
   <div class="order-card">
-    <h2>Complete Your Order</h2>
-    
     <div class="input-group">
-      <label>Full Name</label>
-      <input type="text" id="custName" placeholder="Juan Dela Cruz">
+      <label>Customer Name</label>
+      <input type="text" id="custName" placeholder="Enter your name">
     </div>
 
     <div class="input-group">
       <label>Order Type</label>
-      <select id="orderType" onchange="toggleTableInput()">
+      <select id="orderType" onchange="toggleTable()">
         <option value="Dine-in">Dine-in</option>
         <option value="Take-out">Take-out</option>
       </select>
     </div>
 
-    <div class="input-group" id="tableNumGroup">
+    <div class="input-group" id="tableGrp">
       <label>Table Number</label>
-      <input type="number" id="tableNumber" placeholder="Enter your table #" min="1">
+      <input type="number" id="tableNum" placeholder="Table #">
     </div>
 
-    <hr style="margin: 25px 0; opacity: 0.1;">
+    <div class="item-selector">
+      <div class="preview-container">
+        <img id="itemPreview" src="espresso.jpg" class="item-main-img">
+      </div>
 
-    <label>Choose Your Items</label>
-    <div class="add-item-box">
-      <select id="itemSelect">
-        <optgroup label="Coffee">
-          <option value="Espresso" data-price="120">Espresso - ₱120</option>
-          <option value="Cappuccino" data-price="150">Cappuccino - ₱150</option>
-          <option value="Latte" data-price="160">Latte - ₱160</option>
-          <option value="Mocha" data-price="170">Mocha - ₱170</option>
+      <select id="itemSelect" onchange="updatePreview()">
+        <optgroup label="[ COFFEE ]">
+          <option value="Espresso" data-price="120" data-img="espresso.jpg">Espresso - ₱120</option>
+          <option value="Cappuccino" data-price="150" data-img="cappuccino.jpg">Cappuccino - ₱150</option>
+          <option value="Latte" data-price="160" data-img="latte.jpg">Latte - ₱160</option>
+          <option value="Mocha" data-price="170" data-img="mocha.jpg">Mocha - ₱170</option>
         </optgroup>
-        <optgroup label="Tea">
-          <option value="Green Tea" data-price="120">Green Tea - ₱120</option>
-          <option value="Chai Latte" data-price="150">Chai Latte - ₱150</option>
+        <optgroup label="[ TEA ]">
+          <option value="Green Tea" data-price="120" data-img="greentea.jpg">Green Tea - ₱120</option>
+          <option value="Black Tea" data-price="120" data-img="blacktea.jpg">Black Tea - ₱120</option>
+          <option value="Chai Latte" data-price="150" data-img="chailatte.jpg">Chai Latte - ₱150</option>
+          <option value="Herbal Tea" data-price="130" data-img="herbaltea.jpg">Herbal Tea - ₱130</option>
         </optgroup>
-        <optgroup label="Pastries">
-          <option value="Croissant" data-price="90">Croissant - ₱90</option>
-          <option value="Brownie" data-price="100">Brownie - ₱100</option>
-          <option value="Muffin" data-price="80">Muffin - ₱80</option>
+        <optgroup label="[ PASTRIES ]">
+          <option value="Croissant" data-price="90" data-img="croissant.jpg">Croissant - ₱90</option>
+          <option value="Muffin" data-price="80" data-img="muffin.jpg">Muffin - ₱80</option>
+          <option value="Brownie" data-price="100" data-img="brownie.jpg">Brownie - ₱100</option>
+          <option value="Cake Slice" data-price="120" data-img="cakeslice.jpg">Cake Slice - ₱120</option>
+        </optgroup>
+        <optgroup label="[ SPECIALS ]">
+          <option value="Iced Coffee Float" data-price="180" data-img="icedcoffee.jpg">Iced Coffee Float - ₱180</option>
+          <option value="Signature Latte" data-price="170" data-img="signaturelatte.jpg">Signature Latte - ₱170</option>
+          <option value="Affogato" data-price="200" data-img="affogato.jpg">Affogato - ₱200</option>
         </optgroup>
       </select>
-      <button class="btn-add" onclick="addToCart()">Add</button>
+      
+      <div class="add-row">
+        <input type="number" id="itemQty" value="1" min="1" class="qty-input">
+        <button class="btn-add" onclick="addToCart()">Add to List</button>
+      </div>
     </div>
 
     <table id="cartTable">
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Price</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="cartBody">
-        </tbody>
+      <thead><tr><th>Order Details</th><th>Total</th><th></th></tr></thead>
+      <tbody id="cartBody"></tbody>
     </table>
 
-    <div class="total-display">Total: ₱<span id="totalPrice">0</span></div>
+    <div class="total-display">Grand Total: ₱<span id="totalPrice">0</span></div>
 
     <div class="input-group">
-      <label>Special Instructions</label>
-      <textarea id="orderNotes" rows="2" placeholder="e.g., Extra shot, less sugar, etc."></textarea>
+      <label>Special Notes</label>
+      <textarea id="orderNotes" rows="2" placeholder="e.g. Less sugar, extra hot"></textarea>
     </div>
 
-    <button class="btn-send" onclick="sendToWhatsApp()">Send Order to WhatsApp</button>
-    <a href="menu.html" class="back-link">Return to Menu</a>
+    <button class="btn-send" onclick="prepareOrder()">Send Order via WhatsApp</button>
   </div>
 </div>
 
 <div class="success-overlay" id="successPopup">
-  <div class="success-icon">✓</div>
-  <h2>Order Confirmed!</h2>
-  <p>We're taking you to WhatsApp now.<br>Please remember to hit <strong>'Send'</strong> in the chat!</p>
-  <button class="btn-send" style="width: auto; padding: 12px 30px;" onclick="location.reload()">Place New Order</button>
+  <h2>Opening WhatsApp...</h2>
 </div>
 
 <script>
+const MY_PHONE = "639310410733";
 let cart = [];
 let total = 0;
 
-// Toggle Table Number field
-function toggleTableInput() {
-  const orderType = document.getElementById('orderType').value;
-  const tableGroup = document.getElementById('tableNumGroup');
-  tableGroup.style.display = (orderType === 'Dine-in') ? 'block' : 'none';
+function updatePreview() {
+  const s = document.getElementById('itemSelect');
+  const imgPath = s.options[s.selectedIndex].getAttribute('data-img');
+  document.getElementById('itemPreview').src = imgPath;
 }
 
-// Cart Logic
+function toggleTable() {
+  document.getElementById('tableGrp').style.display = 
+    (document.getElementById('orderType').value === 'Dine-in') ? 'block' : 'none';
+}
+
 function addToCart() {
-  const select = document.getElementById('itemSelect');
-  const itemName = select.value;
-  const itemPrice = parseInt(select.options[select.selectedIndex].getAttribute('data-price'));
+  const s = document.getElementById('itemSelect');
+  const qtyInput = document.getElementById('itemQty');
+  const qty = parseInt(qtyInput.value);
+  const price = parseInt(s.options[s.selectedIndex].getAttribute('data-price'));
+  const imgPath = s.options[s.selectedIndex].getAttribute('data-img');
+  const itemName = s.value;
 
-  cart.push({ name: itemName, price: itemPrice });
-  updateCartUI();
+  if (qty < 1 || isNaN(qty)) return;
+
+  const existing = cart.find(item => item.name === itemName);
+  if (existing) { existing.qty += qty; } 
+  else { cart.push({ name: itemName, price: price, qty: qty, img: imgPath }); }
+
+  qtyInput.value = 1;
+  renderCart();
 }
 
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCartUI();
-}
-
-function updateCartUI() {
-  const cartBody = document.getElementById('cartBody');
-  cartBody.innerHTML = '';
-  total = 0;
-
-  cart.forEach((item, index) => {
-    total += item.price;
-    cartBody.innerHTML += `
-      <tr>
-        <td>${item.name}</td>
-        <td>₱${item.price}</td>
-        <td><button class="remove-btn" onclick="removeFromCart(${index})">✕</button></td>
-      </tr>
-    `;
+function renderCart() {
+  const body = document.getElementById('cartBody');
+  body.innerHTML = ''; total = 0;
+  cart.forEach((item, i) => {
+    const subtotal = item.price * item.qty;
+    total += subtotal;
+    body.innerHTML += `<tr>
+        <td>
+          <img src="${item.img}" class="cart-thumb">
+          <strong>${item.qty}x</strong> ${item.name}
+        </td>
+        <td>₱${subtotal}</td>
+        <td><button class="remove-btn" onclick="cart.splice(${i},1);renderCart();">✕</button></td>
+    </tr>`;
   });
-
   document.getElementById('totalPrice').innerText = total;
 }
 
-// Final WhatsApp Send
-function sendToWhatsApp() {
+function prepareOrder() {
   const name = document.getElementById('custName').value;
   const type = document.getElementById('orderType').value;
-  const table = document.getElementById('tableNumber').value;
-  const notes = document.getElementById('orderNotes').value;
+  const table = document.getElementById('tableNum').value;
+  const notes = document.getElementById('orderNotes').value || 'None';
 
-  if(!name) { alert("Please enter your name."); return; }
-  if(type === 'Dine-in' && !table) { alert("Please enter your table number."); return; }
-  if(cart.length === 0) { alert("Your cart is empty!"); return; }
+  if(!name || (type==='Dine-in' && !table) || cart.length === 0) { 
+      alert("Please check your details and add items!"); 
+      return; 
+  }
 
-  // --- REPLACE WITH YOUR WHATSAPP NUMBER ---
-  const phoneNumber = "639000000000"; 
+  const itemsMsg = cart.map(i => `- ${i.qty}x ${i.name} (₱${i.price * i.qty})`).join('%0A');
+  const msg = `*NEW ORDER - BREW %26 BEAN*%0A------------------%0A*Name:* ${name}%0A*Type:* ${type}${type==='Dine-in'?'%0A*Table:* '+table:''}%0A%0A*Items:*%0A${itemsMsg}%0A%0A*Notes:* ${notes}%0A%0A*TOTAL: ₱${total}*`;
 
-  let itemList = cart.map(item => `- ${item.name} (₱${item.price})`).join('%0A');
-  let tableInfo = (type === 'Dine-in') ? `*Table Number:* ${table}%0A` : '';
-  
-  const message = `*NEW ORDER - BREW %26 BEAN*%0A` +
-                  `--------------------------%0A` +
-                  `*Customer:* ${name}%0A` +
-                  `*Type:* ${type}%0A` +
-                  tableInfo + 
-                  `%0A*Items Ordered:*%0A${itemList}%0A%0A` +
-                  `*Total:* ₱${total}%0A` +
-                  `*Notes:* ${notes || 'None'}`;
-
-  // Show Success Popup
   document.getElementById('successPopup').style.display = 'flex';
-
-  // Open WhatsApp after a short delay
-  setTimeout(() => {
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-  }, 2000);
+  setTimeout(() => { 
+      window.location.href = `whatsapp://send?phone=${MY_PHONE}&text=${msg}`;
+      document.getElementById('successPopup').style.display = 'none';
+  }, 1000);
 }
 </script>
-
 </body>
 </html>

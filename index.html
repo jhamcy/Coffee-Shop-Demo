@@ -199,11 +199,13 @@ footer {
     display: none;
     flex-direction: column;
     position: absolute;
-    top: 60px;
-    right: 0;
+    top: 60px; /* Aligns under header */
+    left: 0;
     background: var(--primary);
     width: 100%;
     padding: 30px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
   }
   nav.active { display: flex; }
   .hero {
@@ -219,6 +221,7 @@ footer {
   <div class="hamburger" onclick="toggleMenu()">☰</div>
   <nav id="navMenu">
     <a href="index.html" style="color: var(--accent);">Home</a>
+    <a href="about.html">About</a>
     <a href="menu.html">Menu</a>
   </nav>
 </header>

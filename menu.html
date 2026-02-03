@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Brew & Bean | Menu</title>
-
 <style>
 /* --- VARIABLES & RESET --- */
 :root {
@@ -14,14 +13,12 @@
   --white: #ffffff;
   --text: #4a4a4a;
 }
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
-
 body {
   background: var(--bg);
   color: var(--text);
@@ -41,30 +38,25 @@ header {
   z-index: 1000;
   box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
-
 header h1 {
   font-size: 1.5rem;
   letter-spacing: 1px;
   color: var(--accent);
   text-transform: uppercase;
 }
-
 nav {
   display: flex;
   gap: 25px;
 }
-
 nav a {
   color: white;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
 }
-
 nav a:hover {
   color: var(--accent);
 }
-
 .hamburger {
   display: none;
   font-size: 1.8rem;
@@ -77,12 +69,10 @@ section {
   max-width: 1200px;
   margin: auto;
 }
-
 .section-title {
   text-align: center;
   margin-bottom: 50px;
 }
-
 .section-title h3 {
   font-size: 2.2rem;
   color: var(--primary);
@@ -95,18 +85,15 @@ section {
   text-align: center;
   margin-bottom: 60px;
 }
-
 .menu-table th, .menu-table td {
   border: 1px solid #ddd;
   padding: 15px;
 }
-
 .menu-table th {
   background-color: var(--primary);
   color: white;
   font-size: 18px;
 }
-
 .menu-item-img {
   width: 70px;
   height: 70px;
@@ -117,18 +104,15 @@ section {
   transition: transform 0.3s ease;
   cursor: pointer;
 }
-
 .menu-table td:hover .menu-item-img {
   transform: scale(1.1);
 }
-
 .menu-item-name {
   font-weight: bold;
   margin-bottom: 5px;
   font-size: 16px;
   color: var(--primary);
 }
-
 .menu-item-price {
   display: block;
   font-weight: normal;
@@ -143,12 +127,10 @@ section {
   opacity: 0;
   transform: translateY(20px);
 }
-
 .menu-table td.visible {
   opacity: 1;
   transform: translateY(0);
 }
-
 .menu-table td:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 15px rgba(0,0,0,0.1);
@@ -169,11 +151,9 @@ section {
   box-shadow: 0 4px 15px rgba(197, 157, 95, 0.3);
   margin: 20px 0;
 }
-
 .order-button:hover {
   background: transparent;
   color: var(--accent);
-  transform: translateY(-3px);
 }
 
 /* --- LIGHTBOX --- */
@@ -189,7 +169,6 @@ section {
   align-items: center;
   z-index: 2000;
 }
-
 .lightbox-overlay img {
   max-width: 90%;
   max-height: 80%;
@@ -203,24 +182,20 @@ section {
 
 @media (max-width: 768px) {
   .hamburger { display: block; }
-
   nav {
     display: none;
     flex-direction: column;
     position: absolute;
     top: 60px;
-    right: 0;
+    left: 0;
     background: var(--primary);
     width: 100%;
-    padding: 20px;
+    padding: 30px;
     text-align: center;
   }
-
   nav.active { display: flex; }
-
   .desktop-table { display: none; }
   .mobile-tables { display: block; }
-  
   .mobile-tables table {
     display: flex;
     flex-wrap: wrap;
@@ -231,19 +206,16 @@ section {
     transform: translateY(30px);
     transition: 0.6s;
   }
-  
   .mobile-tables table.visible {
     opacity: 1;
     transform: translateY(0);
   }
-
   .mobile-tables td {
     flex: 0 1 45%;
     max-width: 140px;
     padding: 10px;
     border-radius: 12px;
   }
-
   .mobile-tables th {
     display: block;
     width: 100%;
@@ -256,7 +228,6 @@ section {
 }
 </style>
 </head>
-
 <body>
 
 <header>
@@ -264,6 +235,7 @@ section {
   <div class="hamburger" onclick="toggleMenu()">☰</div>
   <nav id="navMenu">
     <a href="index.html">Home</a>
+    <a href="about.html">About</a>
     <a href="menu.html" style="color: var(--accent);">Menu</a>
   </nav>
 </header>
@@ -303,7 +275,7 @@ section {
         <td onclick="openLightbox(this.querySelector('img'))"><img src="mocha.jpg" class="menu-item-img"><div class="menu-item-name">Mocha</div><span class="menu-item-price">₱170</span></td>
         <td onclick="openLightbox(this.querySelector('img'))"><img src="herbaltea.jpg" class="menu-item-img"><div class="menu-item-name">Herbal Tea</div><span class="menu-item-price">₱130</span></td>
         <td onclick="openLightbox(this.querySelector('img'))"><img src="cakeslice.jpg" class="menu-item-img"><div class="menu-item-name">Cake Slice</div><span class="menu-item-price">₱120</span></td>
-        <td></td>
+        <td style="background: transparent; border: none;"></td>
       </tr>
     </tbody>
   </table>
@@ -375,13 +347,11 @@ function animateMenu() {
   const cells = document.querySelectorAll(".menu-table td");
   const tables = document.querySelectorAll(".mobile-tables table");
   const triggerBottom = window.innerHeight * 0.9;
-
   cells.forEach(cell => {
     if (cell.getBoundingClientRect().top < triggerBottom) {
       cell.classList.add("visible");
     }
   });
-
   tables.forEach(table => {
     if (table.getBoundingClientRect().top < triggerBottom) {
       table.classList.add("visible");
@@ -398,7 +368,6 @@ function openLightbox(img) {
   lightboxImg.src = img.src;
   lightbox.style.display = "flex";
 }
-
 function closeLightbox() {
   document.getElementById("lightbox").style.display = "none";
 }
